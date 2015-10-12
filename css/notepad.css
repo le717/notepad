@@ -145,12 +145,11 @@ textarea.no-word-wrap {
 }
 
 /* Context menu positions */
-/* TODO Readjust these... again */
 .menu-context.file { left: -4.4em; }
-.menu-context.edit { left: -2.1em; }
-.menu-context.format { left: 0.3em; }
-.menu-context.view { left: 4.2em; }
-.menu-context.help { left: 7.1em; }
+.menu-context.edit { left: -2em; }
+.menu-context.format { left: 0.6em; }
+.menu-context.view { left: 4.8em; }
+.menu-context.help { left: 7.7em; }
 
 /* ------- Windows 10 theme ------- */
 .win10 .menu #border { border-bottom: 1px solid blue; }

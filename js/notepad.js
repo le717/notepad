@@ -1,6 +1,5 @@
 (function() {
   "use strict";
-
   /**
    * Confirm this is a nav menu item.
    *
