@@ -18,6 +18,7 @@ header {
   padding-top: 0.5em;
   padding-bottom: 0.2em;
   padding-left: 0.7em;
+  cursor: default;
 }
 
 header img { padding-right: 0.2em; }
