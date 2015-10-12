@@ -94,6 +94,7 @@ textarea {
   border: none;
   font-family: "Lucida Console", monospace;
   font-size: 13px;
+  overflow-y: scroll;
 }
 textarea:focus { outline: none; }
 
