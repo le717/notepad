@@ -29,6 +29,11 @@ header h1 {
   display: inline;
 }
 
+.hidden-link {
+  color: inherit;
+  text-decoration: none;
+}
+
 /*
 header #btns { float: right; }
 

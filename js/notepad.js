@@ -95,4 +95,24 @@
   wordWrap.onchange = function() {
     QtextArea.classList.toggle("no-word-wrap");
   };
+
+
+  var QSave     = document.querySelector(".menu-context #action-save"),
+      QSaveLink = document.querySelector(".menu-context #action-save a");
+
+  // Save the note to the computer
+  QSave.addEventListener("click", function(e) {
+    console.log(e.target.tagName.toLowerCase());
+    // Create a blob object of the contents
+     var blob = new Blob([QtextArea.value], {type: "text/plain"});
+
+    // Download the note
+    QSaveLink.setAttribute("href", URL.createObjectURL(blob));
+    QSaveLink.setAttribute("download", "MyNote.txt");
+
+    // If the text was not clicked, click it so the download will start
+    if (e.target.tagName.toLowerCase() !== "a") {
+      QSaveLink.click();
+    }
+  });
 }());
