@@ -96,10 +96,10 @@ header .action.full {
 .menu .border#secondary { height: 2px; }
 
 textarea {
-  margin-top: 0.5em;
-  margin-left: 0.25em;
-  width: 99.7%;
-  height: 90.4%;
+  padding-top: 0.5em;
+  padding-left: 0.3em;
+  width: inherit;
+  height: inherit;
   resize: none;
   border: none;
   font-family: "Lucida Console", monospace;
@@ -107,6 +107,16 @@ textarea {
   overflow-y: scroll;
 }
 textarea:focus { outline: none; }
+
+#area-edit {
+  margin-top: -1px;
+  width: 99.9%;
+  height: 91.32vh;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid transparent;
+  /*border-bottom: none;*/
+}
 
 /* Disable textarea's inherent word wrapping */
 textarea.no-word-wrap {
@@ -159,8 +169,8 @@ textarea.no-word-wrap {
 .menu-context.help { left: 7.7em; }
 
 /* ------- Windows 10 theme ------- */
-.win10 .menu .border#primary { background-color: #00f; }
 .win10 .menu .border#secondary { background-color: #f0F0f0; }
+.win10 #area-edit { border-color: #0078d7; }
 
 /* Navbar */
 .win10 .menu li:hover {
