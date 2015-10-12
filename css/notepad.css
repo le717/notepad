@@ -59,15 +59,10 @@ header .action.full {
 }
 */
 
-.menu #border {
-  clear: left;
-  padding-top: 0.2em;
-
-}
-
 .menu {
   margin-top: -1em;
   margin-left: -2.5em;
+  padding-bottom: 0.2em;
 }
 
 .menu ul {
@@ -85,9 +80,17 @@ header .action.full {
   border: 1px solid transparent;
 }
 
+.menu #border {
+  width: 100%;
+  height: 1px;
+  clear: left;
+  position: relative;
+  top: 0.2em;
+}
+
 textarea {
-  margin-top: -0.7em;
-  margin-left: 0.2em;
+  margin-top: 0.5em;
+  margin-left: 0.25em;
   width: 99.7%;
   height: 91.2%;
   resize: none;
@@ -153,7 +156,7 @@ textarea.no-word-wrap {
 .menu-context.help { left: 7.7em; }
 
 /* ------- Windows 10 theme ------- */
-.win10 .menu #border { border-bottom: 1px solid blue; }
+.win10 .menu #border { background-color: #00f; }
 
 /* Navbar */
 .win10 .menu li:hover {
@@ -178,7 +181,7 @@ textarea.no-word-wrap {
 /* Win7 header */
 .win7 header { background-color: #66beff; }
 .win7 .menu { background-image: linear-gradient(to bottom, #f2f5fa, #f6ddef, #dee3f3); }
-.win7 .menu #border { border-bottom: 1px solid #3d7bad; }
+.win7 .menu #border { background-color: #3d7bad; }
 .win7 .menu-underline { text-decoration: underline; }
 
 .win7 .menu li:hover {
