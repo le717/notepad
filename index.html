@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Notepad</title>
+  <link rel="shortcut icon" sizes="16x16" href="favicon.ico">
+  <link rel="stylesheet" href="css/notepad.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+</head>
+
+<body class="win10">
+  <header>
+    <img width="19" height="16" alt="Logo" src="img/icon.png">
+    <h1>Untitled - Notepad </h1>
+
+    <div id="btns">
+      <div class="action mini">&#151;</div>
+      <div class="action full">&#9633;</div>
+      <div class="action close">X</div>
+    </div>
+  </header>
+
+  <nav class="menu">
+    <ul>
+      <li id="menu-file"><span class="menu-underline">F</span>ile</li>
+      <li id="menu-edit"><span class="menu-underline">E</span>dit</li>
+      <li id="menu-format">F<span class="menu-underline">o</span>rmat</li>
+      <li id="menu-view"><span class="menu-underline">V</span>iew</li>
+      <li id="menu-help"><span class="menu-underline">H</span>elp</li>
+    </ul>
+    <p id="border"></p>
+  </nav>
+
+  <nav class="menu-context file">
+    <div class="area-check">
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+    </div>
+
+    <label><span class="menu-underline">N</span>ew</label>
+    <label><span class="menu-underline">O</span>pen...</label>
+    <label><span class="menu-underline">S</span>ave</label>
+    <label>Save <span class="menu-underline">A</span>s...</label>
+    <label class="menu-divider">Page Set<span class="menu-underline">u</span>p...</label>
+    <label><span class="menu-underline">P</span>rint...</label>
+    <label class="menu-divider">E<span class="menu-underline">x</span>it</label>
+  </nav>
+
+  <nav class="menu-context edit">
+    <div class="area-check">
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+      <div class="blank"></div>
+    </div>
+
+    <label class="menu-disabled"><span class="menu-underline">U</span>ndo</label>
+    <label class="menu-disabled menu-divider">Cu<span class="menu-underline">t</span></label>
+    <label class="menu-disabled"><span class="menu-underline">C</span>opy</label>
+    <label class="menu-disabled"><span class="menu-underline">P</span>aste</label>
+    <label class="menu-disabled">De<span class="menu-underline">l</span>ete</label>
+
+    <label class="menu-disabled menu-divider"><span class="menu-underline">F</span>ind...</label>
+    <label class="menu-disabled">Find <span class="menu-underline">N</span>ext...</label>
+    <label class="menu-disabled"><span class="menu-underline">R</span>eplace...</label>
+    <label class="menu-disabled"><span class="menu-underline">G</span>o To...</label>
+
+    <label class="menu-disabled menu-divider">Select <span class="menu-underline">A</span>ll</label>
+    <label class="menu-disabled">Time/<span class="menu-underline">D</span>ate</label>
+  </nav>
+
+  <nav class="menu-context format">
+    <div class="area-check">
+      <input type="checkbox" id="word-wrap">
+      <div class="blank"></div>
+    </div>
+    <label for="word-wrap"><span class="menu-underline">W</span>ord Wrap</label>
+    <label><span class="menu-underline">F</span>ont...</label>
+  </nav>
+
+  <nav class="menu-context view">
+    <div class="area-check">
+      <div class="blank"></div>
+      <input type="radio" name="theme" id="theme-win10" checked>
+      <input type="radio" name="theme" id="theme-win7">
+    </div>
+
+    <label class="menu-disabled"><span class="menu-underline">S</span>tatus Bar</label>
+    <label class="menu-divider" for="theme-win10"><span class="menu-underline">W</span>indows 10</label>
+    <label for="theme-win7"><span class="menu-underline">W</span>indows 7</label>
+  </nav>
+
+  <nav class="menu-context help">
+    <div class="area-check">
+      <div class="blank"></div>
+      <div class="blank"></div>
+    </div>
+    <label>View <span class="menu-underline">H</span>elp</label>
+    <label class="menu-divider"><span class="menu-underline">A</span>bout Notepad</label>
+  </nav>
+
+  <textarea class="no-word-wrap" autocomplete="off" autofocus spellcheck="false"></textarea>
+
+  <script async src="js/notepad.js"></script>
+</body>
+</html>
