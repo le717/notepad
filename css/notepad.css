@@ -115,7 +115,7 @@ textarea:focus { outline: none; }
   margin-right: auto;
   margin-left: auto;
   border: 1px solid transparent;
-  /*border-bottom: none;*/
+  border-bottom: none;
 }
 
 /* Disable textarea's inherent word wrapping */
