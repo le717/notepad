@@ -128,7 +128,6 @@ textarea.no-word-wrap {
 }
 .menu-context.visible { display: block; }
 
-
 .menu-context .area-check {
   float: left;
   width: 22%;
@@ -144,10 +143,7 @@ textarea.no-word-wrap {
    border: 1px solid transparent;
 }
 
-.menu-context label:not(:first-of-type) {
-  position: relative;
-  top: 0.2em;
-}
+.menu-context label.menu-divider { margin-top: 0.1em; }
 
 .menu-context .area-check .blank {
   display: block;
