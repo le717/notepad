@@ -184,6 +184,7 @@ textarea.no-word-wrap {
 .win7 header { background-color: #66beff; }
 .win7 .menu { background-image: linear-gradient(to bottom, #f2f5fa, #f6ddef, #dee3f3); }
 .win7 .menu .border#primary { background-color: #3d7bad; }
+.win7 .menu .border#secondary { display: none; }
 .win7 .menu-underline { text-decoration: underline; }
 
 .win7 .menu li:hover {
