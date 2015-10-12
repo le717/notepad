@@ -29,6 +29,7 @@ header h1 {
   display: inline;
 }
 
+/*
 header #btns { float: right; }
 
 header .action {
@@ -56,6 +57,7 @@ header .action.full {
   margin-top: -0.4em;
   font-size: 2em;
 }
+*/
 
 .menu #border {
   clear: left;
