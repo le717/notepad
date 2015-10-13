@@ -71,22 +71,10 @@
     }
   });
 
-
-  var wordWrap  = document.querySelector("input#word-wrap"),
-      QtextArea = document.querySelector("textarea");
-
-  // Word wrap is disabled by default
-  wordWrap.checked = false;
-
-  // Toggle word wrap
-  wordWrap.onchange = function() {
-    QtextArea.classList.toggle("no-word-wrap");
-  };
-
-
   var fileName  = "MyFile.txt",
       QSave     = document.querySelector(".menu-context #action-save"),
-      QSaveLink = document.querySelector(".menu-context #action-save a");
+      QSaveLink = document.querySelector(".menu-context #action-save a"),
+      QtextArea = document.querySelector("textarea");
 
   // Save the note to the computer
   QSave.addEventListener("click", function(e) {
@@ -132,6 +120,13 @@
   };
 
   /**
+   * Toggle word wrap.
+   */
+  Notepad.prototype.toggleWordWrap = function() {
+    self.selectors.textarea.classList.toggle("no-word-wrap");
+  };
+
+  /**
    * Change the UI theme.
    *
    * @param {String} newTheme The desired theme to use.
@@ -170,13 +165,19 @@
   // File > New command
   document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
 
+  // Format > Word Wrap
+  var QwordWrap  = document.querySelector("input#word-wrap");
+
+  // Word wrap is disabled by default
+  QwordWrap.checked = false;
+  QwordWrap.addEventListener("click", notepad.toggleWordWrap);
+
   // View > Windows X
   var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
       themeWin10 = document.querySelector(".menu-context input#theme-win10");
 
   // Default to the Windows 10 theme
   themeWin10.checked = true;
-
   themeWin7.onchange = themeWin10.onchange = function(e) {
     notepad.changeTheme(e.target.id.match(/^theme-(win\d{1,2})/)[1]);
   };
