@@ -72,6 +72,17 @@
   });
 
 
+  var Notepad = (function() {
+  /**
+   * Get the class of the current theme.
+   *
+   * @private
+   * @returns {String}
+   */
+  function __getCurrentTheme(body) {
+    return body.className.match(/^win\d{1,2}$/)[0];
+  }
+
   /**
    * Create a Notepad API instance.
    *
@@ -81,14 +92,13 @@
   function Notepad(selectors) {
     this.fileName = "MyFile.txt";
     this.selectors = selectors;
-    self = this;
   }
 
   /**
    * Create a new file.
    */
   Notepad.prototype.fileNew = function() {
-    self.selectors.textarea.value = "";
+    this.selectors.textarea.value = "";
   };
 
   /**
@@ -96,11 +106,11 @@
    */
   Notepad.prototype.fileSave = function() {
     // Create a blob object of the contents
-    var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
+    var blob = new Blob([this.selectors.textarea.value], {type: "text/plain"});
 
     // Internet Explorer/MS Edge
     if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, self.fileName);
+      window.navigator.msSaveOrOpenBlob(blob, this.fileName);
 
     // All other browsers
     } else {
@@ -108,12 +118,12 @@
       var saveLink = document.createElement("a");
       saveLink.style.display = "none";
       saveLink.setAttribute("href", URL.createObjectURL(blob));
-      saveLink.setAttribute("download", self.fileName);
-      self.selectors.body.appendChild(saveLink);
+      saveLink.setAttribute("download", this.fileName);
+      this.selectors.body.appendChild(saveLink);
 
       // Start the download and remove the link
       saveLink.click();
-      self.selectors.body.removeChild(saveLink);
+      this.selectors.body.removeChild(saveLink);
     }
   };
 
@@ -121,7 +131,7 @@
    * Toggle word wrap.
    */
   Notepad.prototype.toggleWordWrap = function() {
-    self.selectors.textarea.classList.toggle("no-word-wrap");
+    this.selectors.textarea.classList.toggle("no-word-wrap");
   };
 
   /**
@@ -131,17 +141,8 @@
    * @returns {Boolean} True if the theme could be changed, false otherwise.
    */
   Notepad.prototype.changeTheme = function(newTheme) {
-    /**
-     * Get the class of the current theme.
-     *
-     * @returns {String}
-     */
-    function __getCurrentTheme() {
-      return self.selectors.body.className.match(/^win\d{1,2}$/)[0];
-    }
-
     var validThemes  = ["win7", "win10"],
-        currentTheme = __getCurrentTheme();
+        currentTheme = __getCurrentTheme(this.selectors.body);
 
     // The desired theme is already applied or not available
     if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
@@ -149,10 +150,14 @@
     }
 
     // Apply the desired theme
-    self.selectors.body.classList.remove(currentTheme);
-    self.selectors.body.classList.add(newTheme);
+    this.selectors.body.classList.remove(currentTheme);
+    this.selectors.body.classList.add(newTheme);
     return true;
   };
+
+    return Notepad;
+  })();
+
 
   // Create a new Notepad API instance
   var notepad = new Notepad({
@@ -161,17 +166,17 @@
   });
 
   // File > New command
-  document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
+  document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew.bind(notepad));
 
   // File > Save command
-  document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
+  document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave.bind(notepad));
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
 
   // Word wrap is disabled by default
   QwordWrap.checked = false;
-  QwordWrap.addEventListener("click", notepad.toggleWordWrap);
+  QwordWrap.addEventListener("click", notepad.toggleWordWrap.bind(notepad));
 
   // View > Windows X
   var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
