@@ -3,7 +3,7 @@
   /**
    * Confirm this is a nav menu item.
    *
-   * @return {Boolean} True if a nav item.
+   * @returns {Boolean} True if a nav item.
    */
   function isNavItem(id) {
     return /^menu-(?:\w+?)$/.test(id);
@@ -123,4 +123,32 @@
       }
     }
   });
+
+
+  /**
+   * Create a Notepad API instance.
+   *
+   * @constructs Notepad
+   * @param {Object} selectors [[Description]]
+   */
+  function Notepad(selectors) {
+    this.fileName = "MyFile.txt";
+    this.selectors = selectors;
+    self = this;
+  }
+
+  /**
+   * Create a new file.
+   */
+  Notepad.prototype.fileNew = function() {
+    self.selectors.textarea.value = "";
+  };
+
+  // Create a new Notepad API instance
+  var notepad = new Notepad({
+    textarea: document.querySelector("textarea")
+  });
+
+  // File > New command
+  document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
 }());
