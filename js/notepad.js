@@ -72,19 +72,6 @@
   });
 
 
-  var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
-      themeWin10 = document.querySelector(".menu-context input#theme-win10");
-
-  // Default to the Windows 10 theme
-  themeWin10.checked = true;
-
-  // Toggle between the themes
-  themeWin7.onchange = themeWin10.onchange = function() {
-    Qbody.classList.toggle("win10");
-    Qbody.classList.toggle("win7");
-  };
-
-
   var wordWrap  = document.querySelector("input#word-wrap"),
       QtextArea = document.querySelector("textarea");
 
@@ -144,11 +131,53 @@
     self.selectors.textarea.value = "";
   };
 
+  /**
+   * Change the UI theme.
+   *
+   * @param {String} newTheme The desired theme to use.
+   * @returns {Boolean} True if the theme could be changed, false otherwise.
+   */
+  Notepad.prototype.changeTheme = function(newTheme) {
+    /**
+     * Get the class of the current theme.
+     *
+     * @returns {String}
+     */
+    function __getCurrentTheme() {
+      return self.selectors.body.className.match(/^win\d{1,2}$/)[0];
+    }
+
+    var validThemes  = ["win7", "win10"],
+        currentTheme = __getCurrentTheme();
+
+    // The desired theme is already applied or not available
+    if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
+      return false;
+    }
+
+    // Apply the desired theme
+    self.selectors.body.classList.remove(currentTheme);
+    self.selectors.body.classList.add(newTheme);
+    return true;
+  };
+
   // Create a new Notepad API instance
   var notepad = new Notepad({
+    body: document.querySelector("body"),
     textarea: document.querySelector("textarea")
   });
 
   // File > New command
   document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
+
+  // View > Windows X
+  var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
+      themeWin10 = document.querySelector(".menu-context input#theme-win10");
+
+  // Default to the Windows 10 theme
+  themeWin10.checked = true;
+
+  themeWin7.onchange = themeWin10.onchange = function(e) {
+    notepad.changeTheme(e.target.id.match(/^theme-(win\d{1,2})/)[1]);
+  };
 }());
