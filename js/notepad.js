@@ -71,34 +71,6 @@
     }
   });
 
-  var fileName  = "MyFile.txt",
-      QSave     = document.querySelector(".menu-context #action-save"),
-      QSaveLink = document.querySelector(".menu-context #action-save a"),
-      QtextArea = document.querySelector("textarea");
-
-  // Save the note to the computer
-  QSave.addEventListener("click", function(e) {
-    // If the text was not clicked, click it so the download will start
-    if (e.target.tagName.toLowerCase() !== "a") {
-      QSaveLink.click();
-
-    // Download the note
-    } else {
-      // Create a blob object of the contents
-      var blob = new Blob([QtextArea.value], {type: "text/plain"});
-
-      // Internet Explorer/MS Edge
-      if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, fileName);
-
-      // All other browsers
-      } else {
-        QSaveLink.setAttribute("href", URL.createObjectURL(blob));
-        QSaveLink.setAttribute("download", fileName);
-      }
-    }
-  });
-
 
   /**
    * Create a Notepad API instance.
@@ -117,6 +89,32 @@
    */
   Notepad.prototype.fileNew = function() {
     self.selectors.textarea.value = "";
+  };
+
+  /**
+   * Save the note to the computer.
+   */
+  Notepad.prototype.fileSave = function() {
+    // Create a blob object of the contents
+    var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
+
+    // Internet Explorer/MS Edge
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveOrOpenBlob(blob, self.fileName);
+
+    // All other browsers
+    } else {
+      // Create the download link
+      var saveLink = document.createElement("a");
+      saveLink.style.display = "none";
+      saveLink.setAttribute("href", URL.createObjectURL(blob));
+      saveLink.setAttribute("download", self.fileName);
+      self.selectors.body.appendChild(saveLink);
+
+      // Start the download and remove the link
+      saveLink.click();
+      self.selectors.body.removeChild(saveLink);
+    }
   };
 
   /**
@@ -164,6 +162,9 @@
 
   // File > New command
   document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
+
+  // File > Save command
+  document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
