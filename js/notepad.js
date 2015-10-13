@@ -97,7 +97,7 @@
   };
 
 
-  var fileName  = "myFile.txt",
+  var fileName  = "MyFile.txt",
       QSave     = document.querySelector(".menu-context #action-save"),
       QSaveLink = document.querySelector(".menu-context #action-save a");
 
