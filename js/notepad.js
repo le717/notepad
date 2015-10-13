@@ -103,23 +103,24 @@
 
   // Save the note to the computer
   QSave.addEventListener("click", function(e) {
-    // Create a blob object of the contents
-     var blob = new Blob([QtextArea.value], {type: "text/plain"});
+    // If the text was not clicked, click it so the download will start
+    if (e.target.tagName.toLowerCase() !== "a") {
+      QSaveLink.click();
 
-     // Download the note
-     // Internet Explorer/MS Edge
-     if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, fileName);
+    // Download the note
+    } else {
+      // Create a blob object of the contents
+      var blob = new Blob([QtextArea.value], {type: "text/plain"});
+
+      // Internet Explorer/MS Edge
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, fileName);
 
       // All other browsers
-     } else {
-      QSaveLink.setAttribute("href", URL.createObjectURL(blob));
-      QSaveLink.setAttribute("download", fileName);
-
-      // If the text was not clicked, click it so the download will start
-      if (e.target.tagName.toLowerCase() !== "a") {
-        QSaveLink.click();
+      } else {
+        QSaveLink.setAttribute("href", URL.createObjectURL(blob));
+        QSaveLink.setAttribute("download", fileName);
       }
-     }
+    }
   });
 }());
