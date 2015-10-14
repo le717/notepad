@@ -73,6 +73,8 @@
 
 
   var Notepad = (function() {
+    var self = null;
+
   /**
    * Get the class of the current theme.
    *
@@ -92,13 +94,14 @@
   function Notepad(selectors) {
     this.fileName = "MyFile.txt";
     this.selectors = selectors;
+    self = this;
   }
 
   /**
    * Create a new file.
    */
   Notepad.prototype.fileNew = function() {
-    this.selectors.textarea.value = "";
+    self.selectors.textarea.value = "";
   };
 
   /**
@@ -106,11 +109,11 @@
    */
   Notepad.prototype.fileSave = function() {
     // Create a blob object of the contents
-    var blob = new Blob([this.selectors.textarea.value], {type: "text/plain"});
+    var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
 
     // Internet Explorer/MS Edge
     if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, this.fileName);
+      window.navigator.msSaveOrOpenBlob(blob, self.fileName);
 
     // All other browsers
     } else {
@@ -118,12 +121,12 @@
       var saveLink = document.createElement("a");
       saveLink.style.display = "none";
       saveLink.setAttribute("href", URL.createObjectURL(blob));
-      saveLink.setAttribute("download", this.fileName);
-      this.selectors.body.appendChild(saveLink);
+      saveLink.setAttribute("download", self.fileName);
+      self.selectors.body.appendChild(saveLink);
 
       // Start the download and remove the link
       saveLink.click();
-      this.selectors.body.removeChild(saveLink);
+      self.selectors.body.removeChild(saveLink);
     }
   };
 
@@ -131,7 +134,7 @@
    * Toggle word wrap.
    */
   Notepad.prototype.toggleWordWrap = function() {
-    this.selectors.textarea.classList.toggle("no-word-wrap");
+    self.selectors.textarea.classList.toggle("no-word-wrap");
   };
 
   /**
@@ -142,7 +145,7 @@
    */
   Notepad.prototype.changeTheme = function(newTheme) {
     var validThemes  = ["win7", "win10"],
-        currentTheme = __getCurrentTheme(this.selectors.body);
+        currentTheme = __getCurrentTheme(self.selectors.body);
 
     // The desired theme is already applied or not available
     if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
@@ -150,8 +153,8 @@
     }
 
     // Apply the desired theme
-    this.selectors.body.classList.remove(currentTheme);
-    this.selectors.body.classList.add(newTheme);
+    self.selectors.body.classList.remove(currentTheme);
+    self.selectors.body.classList.add(newTheme);
     return true;
   };
 
@@ -166,17 +169,17 @@
   });
 
   // File > New command
-  document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew.bind(notepad));
+  document.querySelector(".menu-context #action-new").addEventListener("click", notepad.fileNew);
 
   // File > Save command
-  document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave.bind(notepad));
+  document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
 
   // Word wrap is disabled by default
   QwordWrap.checked = false;
-  QwordWrap.addEventListener("click", notepad.toggleWordWrap.bind(notepad));
+  QwordWrap.addEventListener("click", notepad.toggleWordWrap);
 
   // View > Windows X
   var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
