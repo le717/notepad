@@ -1,3 +1,4 @@
+/* jshint browser: true */
 (function() {
   "use strict";
   /**
@@ -75,88 +76,88 @@
   var Notepad = (function() {
     var self = null;
 
-  /**
-   * Get the class of the current theme.
-   *
-   * @private
-   * @returns {String}
-   */
-  function __getCurrentTheme(body) {
-    return body.className.match(/^win\d{1,2}$/)[0];
-  }
-
-  /**
-   * Create a Notepad API instance.
-   *
-   * @constructs Notepad
-   * @param {Object} selectors [[Description]]
-   */
-  function Notepad(selectors) {
-    this.fileName = "MyFile.txt";
-    this.selectors = selectors;
-    self = this;
-  }
-
-  /**
-   * Create a new file.
-   */
-  Notepad.prototype.fileNew = function() {
-    self.selectors.textarea.value = "";
-  };
-
-  /**
-   * Save the note to the computer.
-   */
-  Notepad.prototype.fileSave = function() {
-    // Create a blob object of the contents
-    var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
-
-    // Internet Explorer/MS Edge
-    if (window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, self.fileName);
-
-    // All other browsers
-    } else {
-      // Create the download link
-      var saveLink = document.createElement("a");
-      saveLink.style.display = "none";
-      saveLink.setAttribute("href", URL.createObjectURL(blob));
-      saveLink.setAttribute("download", self.fileName);
-      self.selectors.body.appendChild(saveLink);
-
-      // Start the download and remove the link
-      saveLink.click();
-      self.selectors.body.removeChild(saveLink);
-    }
-  };
-
-  /**
-   * Toggle word wrap.
-   */
-  Notepad.prototype.toggleWordWrap = function() {
-    self.selectors.textarea.classList.toggle("no-word-wrap");
-  };
-
-  /**
-   * Change the UI theme.
-   *
-   * @param {String} newTheme The desired theme to use.
-   * @returns {Boolean} True if the theme could be changed, false otherwise.
-   */
-  Notepad.prototype.changeTheme = function(newTheme) {
-    var validThemes  = ["win7", "win10"],
-        currentTheme = __getCurrentTheme(self.selectors.body);
-
-    // The desired theme is already applied or not available
-    if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
-      return false;
+    /**
+    * Get the class of the current theme.
+    *
+    * @private
+    * @returns {String}
+    */
+    function __getCurrentTheme(body) {
+      return body.className.match(/^win\d{1,2}$/)[0];
     }
 
-    // Apply the desired theme
-    self.selectors.body.classList.remove(currentTheme);
-    self.selectors.body.classList.add(newTheme);
-    return true;
-  };
+    /**
+    * Create a Notepad API instance.
+    *
+    * @constructs Notepad
+    * @param {Object} selectors [[Description]]
+    */
+    function Notepad(selectors) {
+      this.fileName = "MyFile.txt";
+      this.selectors = selectors;
+      self = this;
+    }
+
+    /**
+    * Create a new file.
+    */
+    Notepad.prototype.fileNew = function() {
+      self.selectors.textarea.value = "";
+    };
+
+    /**
+    * Save the note to the computer.
+    */
+    Notepad.prototype.fileSave = function() {
+      // Create a blob object of the contents
+      var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
+
+      // Internet Explorer/MS Edge
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, self.fileName);
+
+      // All other browsers
+      } else {
+        // Create the download link
+        var saveLink = document.createElement("a");
+        saveLink.style.display = "none";
+        saveLink.setAttribute("href", URL.createObjectURL(blob));
+        saveLink.setAttribute("download", self.fileName);
+        self.selectors.body.appendChild(saveLink);
+
+        // Start the download and remove the link
+        saveLink.click();
+        self.selectors.body.removeChild(saveLink);
+      }
+    };
+
+    /**
+    * Toggle word wrap.
+    */
+    Notepad.prototype.toggleWordWrap = function() {
+      self.selectors.textarea.classList.toggle("no-word-wrap");
+    };
+
+    /**
+    * Change the UI theme.
+    *
+    * @param {String} newTheme The desired theme to use.
+    * @returns {Boolean} True if the theme could be changed, false otherwise.
+    */
+    Notepad.prototype.changeTheme = function(newTheme) {
+      var validThemes  = ["win7", "win10"],
+          currentTheme = __getCurrentTheme(self.selectors.body);
+
+      // The desired theme is already applied or not available
+      if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
+        return false;
+      }
+
+      // Apply the desired theme
+      self.selectors.body.classList.remove(currentTheme);
+      self.selectors.body.classList.add(newTheme);
+      return true;
+    };
 
     return Notepad;
   })();
