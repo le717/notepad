@@ -47,8 +47,15 @@
     }
   });
 
-   Qmenu.addEventListener("click", function(e) {
-     // Make sure the desired menu is not already visible
+  Qmenu.addEventListener("click", function(e) {
+    // Close the menu if the label is clicked again
+    if (isNavItem(e.target.id) && menusAreVisible) {
+      menusAreVisible = false;
+      hideNavMenu();
+      return;
+    }
+
+    // Make sure the desired menu is not already visible
     if (isNavItem(e.target.id) && !e.target.classList.contains("visible")) {
       // Menus are allowed to be shown
       menusAreVisible = true;
@@ -65,10 +72,8 @@
       // Menus are not allowed to be shown at this time
       if (menusAreVisible) {
         menusAreVisible = false;
+        hideNavMenu();
       }
-
-      // Hide the current menu
-      hideNavMenu();
     }
   });
 
