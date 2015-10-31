@@ -98,7 +98,7 @@
     * @param {Object} selectors [[Description]]
     */
     function Notepad(selectors) {
-      this.fileName = "MyFile.txt";
+      this.fileName = "*.txt";
       this.selectors = selectors;
       self = this;
     }
