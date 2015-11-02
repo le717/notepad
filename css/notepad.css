@@ -215,3 +215,9 @@ textarea.no-word-wrap {
 
 .win7 .menu-context .menu-disabled { color: #9b6d84; }
 .win7 .menu-context .menu-disabled:hover { background-image: linear-gradient(to bottom, #eff0f0, #e5e5e5); }
+
+/* Printing stylesheet */
+@media print {
+  header, .menu { display: none; }
+  #area-edit { border-color: transparent !important; }
+}

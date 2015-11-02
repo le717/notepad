@@ -4,6 +4,7 @@
 ## Features ##
 * New file
 * Save file
+* Print file
 * Word wrap
 * Windows 7 and 10 themes
 

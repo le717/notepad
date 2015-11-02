@@ -111,7 +111,7 @@
     };
 
     /**
-    * Save the note to the computer.
+    * Save the document to the computer.
     */
     Notepad.prototype.fileSave = function() {
       // Create a blob object of the contents
@@ -134,6 +134,13 @@
         saveLink.click();
         self.selectors.body.removeChild(saveLink);
       }
+    };
+
+    /**
+     * Print the current document.
+     */
+    Notepad.prototype.filePrint = function() {
+      window.print();
     };
 
     /**
@@ -179,6 +186,9 @@
 
   // File > Save command
   document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
+
+  // File > Print command
+  document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
