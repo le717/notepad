@@ -219,5 +219,6 @@ textarea.no-word-wrap {
 /* Printing stylesheet */
 @media print {
   header, .menu { display: none; }
+  .menu-context { display: none !important; }
   #area-edit { border-color: transparent !important; }
 }
