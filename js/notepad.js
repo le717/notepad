@@ -137,6 +137,22 @@
     };
 
     /**
+     * Save a document to the computer using a custom file name.
+     */
+    Notepad.prototype.fileSaveAs = function() {
+      var newName = prompt("Enter the desired file name").trim();
+
+      // Do not permit a blank name
+      if (/^\s*$/.test(newName)) {
+        newName = "Note";
+      }
+
+      // Save the file
+      self.fileName = newName + ".txt";
+      self.fileSave();
+    };
+
+    /**
      * Print the current document.
      */
     Notepad.prototype.filePrint = function() {
@@ -186,6 +202,9 @@
 
   // File > Save command
   document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
+
+  // File > Save As command
+  document.querySelector(".menu-context #action-save-as").addEventListener("click", notepad.fileSaveAs);
 
   // File > Print command
   document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);

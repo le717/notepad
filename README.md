@@ -4,11 +4,12 @@
 ## Features ##
 * New file
 * Save file
+* Save file as
 * Print file
 * Word wrap
-* Windows 7 and 10 themes
+* Windows 7 and 10 theme
 
 ## License ##
 [MIT](LICENSE)
 
-Created 2015 Caleb Ely
+Created 2015-2016 Caleb Ely
