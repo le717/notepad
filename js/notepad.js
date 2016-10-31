@@ -82,37 +82,37 @@
     var self = null;
 
     /**
-    * Get the class of the current theme.
-    *
-    * @private
-    * @returns {String}
-    */
+     * Get the class of the current theme.
+     *
+     * @private
+     * @returns {String}
+     */
     function __getCurrentTheme(body) {
       return body.className.match(/^win\d{1,2}$/)[0];
     }
 
     /**
-    * Create a Notepad API instance.
-    *
-    * @constructs Notepad
-    * @param {Object} selectors [[Description]]
-    */
+     * Create a Notepad API instance.
+     *
+     * @constructs Notepad
+     * @param {Object} selectors [[Description]]
+     */
     function Notepad(selectors) {
-      this.fileName = "*.txt";
+      this.fileName = "Note.txt";
       this.selectors = selectors;
       self = this;
     }
 
     /**
-    * Create a new file.
-    */
+     * Create a new file.
+     */
     Notepad.prototype.fileNew = function() {
       self.selectors.textarea.value = "";
     };
 
     /**
-    * Save the document to the computer.
-    */
+     * Save the document to the computer.
+     */
     Notepad.prototype.fileSave = function() {
       // Create a blob object of the contents
       var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
@@ -137,6 +137,22 @@
     };
 
     /**
+     * Save a document to the computer using a custom file name.
+     */
+    Notepad.prototype.fileSaveAs = function() {
+      var newName = prompt("Enter the desired file name").trim();
+
+      // Do not permit a blank name
+      if (/^\s*$/.test(newName)) {
+        newName = "Note";
+      }
+
+      // Save the file
+      self.fileName = newName + ".txt";
+      self.fileSave();
+    };
+
+    /**
      * Print the current document.
      */
     Notepad.prototype.filePrint = function() {
@@ -144,18 +160,18 @@
     };
 
     /**
-    * Toggle word wrap.
-    */
+     * Toggle word wrap.
+     */
     Notepad.prototype.toggleWordWrap = function() {
       self.selectors.textarea.classList.toggle("no-word-wrap");
     };
 
     /**
-    * Change the UI theme.
-    *
-    * @param {String} newTheme The desired theme to use.
-    * @returns {Boolean} True if the theme could be changed, false otherwise.
-    */
+     * Change the UI theme.
+     *
+     * @param {String} newTheme The desired theme to use.
+     * @returns {Boolean} True if the theme could be changed, false otherwise.
+     */
     Notepad.prototype.changeTheme = function(newTheme) {
       var validThemes  = ["win7", "win10"],
           currentTheme = __getCurrentTheme(self.selectors.body);
@@ -186,6 +202,9 @@
 
   // File > Save command
   document.querySelector(".menu-context #action-save").addEventListener("click", notepad.fileSave);
+
+  // File > Save As command
+  document.querySelector(".menu-context #action-save-as").addEventListener("click", notepad.fileSaveAs);
 
   // File > Print command
   document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);
