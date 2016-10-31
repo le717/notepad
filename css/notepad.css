@@ -30,36 +30,6 @@ header h1 {
   display: inline;
 }
 
-/*
-header #btns { float: right; }
-
-header .action {
-  display: inline-block;
-  width: 3em;
-  height: 1.5em;
-
-  vertical-align: top;
-
-  font-size: 1.2em;
-  text-align: center;
-  cursor: default;
-}
-
-header .action:last-of-type {
-  margin-right: 0.7em;
-}
-
-header .action.close:hover {
-  background-color: red;
-  color: #fff;
-}
-
-header .action.full {
-  margin-top: -0.4em;
-  font-size: 2em;
-}
-*/
-
 .menu {
   margin-top: -1em;
   margin-left: -2.5em;
