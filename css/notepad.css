@@ -69,6 +69,7 @@ textarea {
   border: none;
   font-family: "Consolas", "Lucida Console", monospace;
   font-size: 15px;
+  line-height: 1.25;
   overflow-y: scroll;
 }
 textarea:focus { outline: none; }
