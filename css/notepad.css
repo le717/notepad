@@ -61,8 +61,8 @@ header h1 {
 .menu .border#secondary { height: 2px; }
 
 textarea {
-  padding-top: 0.5em;
-  padding-left: 0.3em;
+  padding-top: 0.1em;
+  padding-left: 0.4em;
   width: inherit;
   height: inherit;
   resize: none;
