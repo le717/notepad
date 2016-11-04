@@ -159,6 +159,9 @@
       window.print();
     };
 
+    Notepad.prototype.editTimeDate = function() {
+    };
+
     /**
      * Toggle word wrap.
      */
@@ -208,6 +211,9 @@
 
   // File > Print command
   document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);
+
+  // Edit > Time/Date
+  document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
