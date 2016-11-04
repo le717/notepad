@@ -187,7 +187,7 @@
 
       // Update the document with the date string
       var front = self.selectors.textarea.value.substring(0, cursorPos),
-          back = self.selectors.textarea.value.substring(cursorPos, self.selectors.textarea.length);
+          back  = self.selectors.textarea.value.substring(cursorPos, self.selectors.textarea.length);
 
       // Insert the date string into the document
       self.selectors.textarea.value = front + dateString + back;
