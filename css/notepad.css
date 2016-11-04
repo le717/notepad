@@ -67,8 +67,8 @@ textarea {
   height: inherit;
   resize: none;
   border: none;
-  font-family: "Lucida Console", monospace;
-  font-size: 13px;
+  font-family: "Consolas", "Lucida Console", monospace;
+  font-size: 15px;
   overflow-y: scroll;
 }
 textarea:focus { outline: none; }
