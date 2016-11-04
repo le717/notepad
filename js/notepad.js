@@ -159,6 +159,43 @@
       window.print();
     };
 
+    Notepad.prototype.editTimeDate = function() {
+      var date = new Date(),
+          curHour = date.getHours(),
+          curMin  = date.getMinutes(),
+          timeOfDay = curHour > 11 ? "PM" : "AM",
+          cursorPos = self.selectors.textarea.selectionStart;
+
+      // Midnight
+      if (curHour === 0) {
+        curHour = "12";
+
+        // Afternoon
+      } else if (curHour > 11) {
+        curHour -= 12;
+      }
+
+      // Pretty print the minutes
+      if (curMin < 10) {
+        curMin = "0" + curMin;
+      }
+
+      // Construct the formatted string
+      var dateString = curHour + ":" + curMin + " " + timeOfDay + " " +
+                       (date.getMonth() + 1) + "/" + date.getDate() + "/" +
+                       date.getFullYear();
+
+      // Update the document with the date string
+      var front = self.selectors.textarea.value.substring(0, cursorPos),
+          back = self.selectors.textarea.value.substring(cursorPos, self.selectors.textarea.length);
+
+      // Insert the date string into the document
+      self.selectors.textarea.value = front + dateString + back;
+      self.selectors.textarea.selectionStart = cursorPos;
+      self.selectors.textarea.selectionEnd = cursorPos;
+      self.selectors.textarea.focus();
+    };
+
     /**
      * Toggle word wrap.
      */
@@ -208,6 +245,9 @@
 
   // File > Print command
   document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);
+
+  // Edit > Time/Date
+  document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
 
   // Format > Word Wrap
   var QwordWrap  = document.querySelector("input#word-wrap");
