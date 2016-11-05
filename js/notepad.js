@@ -143,12 +143,9 @@
       var newName = prompt("Enter the desired file name").trim();
 
       // Do not permit a blank name
-      if (/^\s*$/.test(newName)) {
-        newName = "Note";
+      if (!/^\s*$/.test(newName)) {
+        self.fileName = newName + ".txt";
       }
-
-      // Save the file
-      self.fileName = newName + ".txt";
       self.fileSave();
     };
 
