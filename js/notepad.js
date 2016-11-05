@@ -182,8 +182,7 @@
 
       // Construct the formatted string
       var dateString = curHour + ":" + curMin + " " + timeOfDay + " " +
-                       (date.getMonth() + 1) + "/" + date.getDate() + "/" +
-                       date.getFullYear();
+                       date.toLocaleDateString();
 
       // Update the document with the date string
       var front = self.selectors.textarea.value.substring(0, cursorPos),
