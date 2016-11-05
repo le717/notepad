@@ -108,6 +108,7 @@
      */
     Notepad.prototype.fileNew = function() {
       self.selectors.textarea.value = "";
+      self.selectors.textarea.focus();
     };
 
     /**
