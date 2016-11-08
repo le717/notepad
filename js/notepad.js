@@ -68,7 +68,8 @@
    });
 
   Qbody.addEventListener("click", function(e) {
-    if (!isNavItem(e.target.id) && !e.target.classList.contains("menu-disabled") && !e.target.classList.contains("blank")) {
+    if (!isNavItem(e.target.id) && !e.target.classList.contains("menu-disabled") &&
+        !e.target.classList.contains("blank")) {
       // Menus are not allowed to be shown at this time
       if (menusAreVisible) {
         menusAreVisible = false;
@@ -95,7 +96,7 @@
      * Create a Notepad API instance.
      *
      * @constructs Notepad
-     * @param {Object} selectors [[Description]]
+     * @param {Object} selectors - [[Description]]
      */
     function Notepad(selectors) {
       this.fileName = "Note.txt";
@@ -157,6 +158,10 @@
       window.print();
     };
 
+    /**
+     * Insert the current time and date into the document
+     * at the current cursor position.
+     */
     Notepad.prototype.editTimeDate = function() {
       var date = new Date(),
           curHour = date.getHours(),
@@ -203,7 +208,7 @@
     /**
      * Change the UI theme.
      *
-     * @param {String} newTheme The desired theme to use.
+     * @param {String} newTheme - The desired theme to use.
      * @returns {Boolean} True if the theme could be changed, false otherwise.
      */
     Notepad.prototype.changeTheme = function(newTheme) {
@@ -247,7 +252,7 @@
   document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
 
   // Format > Word Wrap
-  var QwordWrap  = document.querySelector("input#word-wrap");
+  var QwordWrap = document.querySelector("input#word-wrap");
 
   // Word wrap is disabled by default
   QwordWrap.checked = false;
