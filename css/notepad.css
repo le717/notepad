@@ -91,6 +91,27 @@ textarea.no-word-wrap {
   overflow-x: scroll;
 }
 
+/* Status bar */
+#area-status-bar {
+  width: 99.85%;
+  height: 1.75em;
+
+  background-color: #e6e6e6;
+  outline: 1px solid #0078d7;
+  display: none;
+}
+#area-status-bar.visible { display: flex; }
+
+#area-status-bar > .text {
+  /*flex-basis: 24%;*/
+  padding-top: 0.2em;
+  padding-left: 1em;
+}
+#area-status-bar > div:first-child {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  flex-basis: 76%;
+}
+
 .menu-context {
   margin-top: -0.2em;
   margin-left: 5em;
