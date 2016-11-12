@@ -91,6 +91,9 @@ textarea.no-word-wrap {
   overflow-x: scroll;
 }
 
+/* Decrease the textarea height when the status bar is enabled */
+#area-edit.has-status-bar { height: 88vh; }
+
 /* Status bar */
 #area-status-bar {
   width: 99.85%;

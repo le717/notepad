@@ -204,6 +204,12 @@
      * Toggle the status bar.
      */
     Notepad.prototype.toggleStatusBar = function() {
+      // Word wrap must be disabled
+      if (!self.wordWrap) {
+        self.selectors.areaEdit.classList.toggle("has-status-bar");
+        self.selectors.statusBar.classList.toggle("visible");
+        self.statusBar = !self.statusBar;
+      }
     };
 
     /**
@@ -247,7 +253,9 @@
   // Create a new Notepad API instance
   var notepad = new Notepad({
     body: document.querySelector("body"),
-    textarea: document.querySelector("textarea")
+    areaEdit: document.querySelector("#area-edit"),
+    textarea: document.querySelector("textarea"),
+    statusBar: document.querySelector("#area-status-bar"),
   });
 
   // File > New command
@@ -272,6 +280,7 @@
   QwordWrap.addEventListener("click", notepad.toggleWordWrap);
 
   // View > Status Bar
+  // Status bar is disabled by default
   var QstatusBar = document.querySelector("input#status-bar");
   QstatusBar.checked = false;
   QstatusBar.addEventListener("click", notepad.toggleStatusBar);
