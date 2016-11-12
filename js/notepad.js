@@ -271,6 +271,11 @@
   QwordWrap.checked = false;
   QwordWrap.addEventListener("click", notepad.toggleWordWrap);
 
+  // View > Status Bar
+  var QstatusBar = document.querySelector("input#status-bar");
+  QstatusBar.checked = false;
+  QstatusBar.addEventListener("click", notepad.toggleStatusBar);
+
   // View > Windows X
   var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
       themeWin10 = document.querySelector(".menu-context input#theme-win10");
