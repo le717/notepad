@@ -200,15 +200,20 @@
       self.selectors.textarea.focus();
     };
 
+    Notepad.prototype.toggleStatusBar = function() {
+    };
+
     /**
      * Toggle word wrap.
      */
     Notepad.prototype.toggleWordWrap = function() {
+      // We cannot have the status bar and word wrap enabled
+      if (self.statusBar) {
+        self.toggleStatusBar();
+      }
+
       self.selectors.textarea.classList.toggle("no-word-wrap");
       self.wordWrap = !self.wordWrap;
-    };
-
-    Notepad.prototype.toggleStatusBar = function() {
     };
 
     /**
