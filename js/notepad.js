@@ -102,6 +102,7 @@
       this.fileName = "Note.txt";
       this.selectors = selectors;
       this.wordWrap = false;
+      this.statusBar = false;
       self = this;
     }
 
@@ -205,6 +206,9 @@
     Notepad.prototype.toggleWordWrap = function() {
       self.selectors.textarea.classList.toggle("no-word-wrap");
       self.wordWrap = !self.wordWrap;
+    };
+
+    Notepad.prototype.toggleStatusBar = function() {
     };
 
     /**
