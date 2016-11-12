@@ -200,6 +200,9 @@
       self.selectors.textarea.focus();
     };
 
+    /**
+     * Toggle the status bar.
+     */
     Notepad.prototype.toggleStatusBar = function() {
     };
 
@@ -263,9 +266,8 @@
   document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
 
   // Format > Word Wrap
-  var QwordWrap = document.querySelector("input#word-wrap");
-
   // Word wrap is disabled by default
+  var QwordWrap = document.querySelector("input#word-wrap");
   QwordWrap.checked = false;
   QwordWrap.addEventListener("click", notepad.toggleWordWrap);
 
