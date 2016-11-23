@@ -220,6 +220,7 @@
         self.ele.areaEdit.classList.toggle("has-status-bar");
         self.ele.statusBar.classList.toggle("visible");
         self.statusBar = !self.statusBar;
+        window.localStorage.setItem("toggle-status-bar", self.statusBar);
 
         // Display the information depending on enable/disable status
         if (self.statusBar) {
@@ -242,6 +243,7 @@
 
       self.ele.textarea.classList.toggle("no-word-wrap");
       self.wordWrap = !self.wordWrap;
+      window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
     };
 
     return Notepad;
@@ -277,9 +279,19 @@
   QwordWrap.checked = false;
   QwordWrap.addEventListener("click", notepad.toggleWordWrap);
 
+  // Enable work wrap if it was previously enabled
+  if (window.localStorage.getItem("toggle-word-wrap") === "true") {
+    QwordWrap.click();
+  }
+
   // View > Status Bar
   // Status bar is disabled by default
   var QstatusBar = document.querySelector("input#status-bar");
   QstatusBar.checked = false;
   QstatusBar.addEventListener("click", notepad.toggleStatusBar);
+
+  // Enable the status bar if it was previously enabled
+  if (window.localStorage.getItem("toggle-status-bar") === "true") {
+    QstatusBar.click();
+  }
 }());
