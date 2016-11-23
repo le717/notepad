@@ -30,7 +30,8 @@
 
   var menusAreVisible = false,
       Qbody = document.querySelector("body"),
-      Qmenu = document.querySelector(".menu");
+      Qmenu = document.querySelector(".menu"),
+      QtextArea = document.querySelector("textarea");
 
   Qmenu.addEventListener("mouseover", function(e) {
     // Make sure we are on a nav item
@@ -254,7 +255,7 @@
   var notepad = new Notepad({
     body: document.querySelector("body"),
     areaEdit: document.querySelector("#area-edit"),
-    textarea: document.querySelector("textarea"),
+    textarea: QtextArea,
     statusBar: document.querySelector("#area-status-bar"),
   });
 
