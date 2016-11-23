@@ -107,6 +107,20 @@
       self = this;
     }
 
+    Notepad.prototype.__getCurrentCursor = function() {
+      var lines = self.ele.textarea.value.substr(0, self.ele.textarea.selectionStart).split("\n");
+      return {
+        col: lines[lines.length - 1].length + 1,
+        line: lines.length
+      };
+    };
+
+    Notepad.prototype.__displayCurrentCursor = function() {
+      var pos = self.__getCurrentCursor();
+      self.ele.statusBar.children[1].children[0].textContent = pos.line;
+      self.ele.statusBar.children[1].children[1].textContent = pos.col;
+    };
+
     /**
      * Create a new file.
      */
@@ -176,7 +190,7 @@
       if (curHour === 0) {
         curHour = "12";
 
-        // Afternoon
+      // Afternoon
       } else if (curHour > 11) {
         curHour -= 12;
       }
@@ -210,6 +224,14 @@
         self.ele.areaEdit.classList.toggle("has-status-bar");
         self.ele.statusBar.classList.toggle("visible");
         self.statusBar = !self.statusBar;
+
+        // Display the information depending on enable/disable status
+        if (self.statusBar) {
+          self.__displayCurrentCursor();
+          self.ele.textarea.addEventListener("keyup", self.__displayCurrentCursor);
+        } else {
+          self.ele.textarea.removeEventListener("keyup", self.__displayCurrentCursor);
+        }
       }
     };
 
