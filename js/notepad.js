@@ -97,11 +97,11 @@
      * Create a Notepad API instance.
      *
      * @constructs Notepad
-     * @param {Object} selectors - [[Description]]
+     * @param {Object} ele - [[Description]]
      */
-    function Notepad(selectors) {
+    function Notepad(ele) {
       this.fileName = "Note.txt";
-      this.selectors = selectors;
+      this.ele = ele;
       this.wordWrap = false;
       this.statusBar = false;
       self = this;
@@ -111,8 +111,8 @@
      * Create a new file.
      */
     Notepad.prototype.fileNew = function() {
-      self.selectors.textarea.value = "";
-      self.selectors.textarea.focus();
+      self.ele.textarea.value = "";
+      self.ele.textarea.focus();
     };
 
     /**
@@ -120,7 +120,7 @@
      */
     Notepad.prototype.fileSave = function() {
       // Create a blob object of the contents
-      var blob = new Blob([self.selectors.textarea.value], {type: "text/plain"});
+      var blob = new Blob([self.ele.textarea.value], {type: "text/plain"});
 
       // Internet Explorer/MS Edge
       if (window.navigator.msSaveOrOpenBlob) {
@@ -133,11 +133,11 @@
         saveLink.style.display = "none";
         saveLink.setAttribute("href", URL.createObjectURL(blob));
         saveLink.setAttribute("download", self.fileName);
-        self.selectors.body.appendChild(saveLink);
+        self.ele.body.appendChild(saveLink);
 
         // Start the download and remove the link
         saveLink.click();
-        self.selectors.body.removeChild(saveLink);
+        self.ele.body.removeChild(saveLink);
       }
     };
 
@@ -170,7 +170,7 @@
           curHour = date.getHours(),
           curMin  = date.getMinutes(),
           timeOfDay = curHour > 11 ? "PM" : "AM",
-          cursorPos = self.selectors.textarea.selectionStart;
+          cursorPos = self.ele.textarea.selectionStart;
 
       // Midnight
       if (curHour === 0) {
@@ -191,14 +191,14 @@
                        date.toLocaleDateString();
 
       // Update the document with the date string
-      var front = self.selectors.textarea.value.substring(0, cursorPos),
-          back  = self.selectors.textarea.value.substring(cursorPos, self.selectors.textarea.length);
+      var front = self.ele.textarea.value.substring(0, cursorPos),
+          back  = self.ele.textarea.value.substring(cursorPos, self.ele.textarea.length);
 
       // Insert the date string into the document
-      self.selectors.textarea.value = front + dateString + back;
-      self.selectors.textarea.selectionStart = cursorPos;
-      self.selectors.textarea.selectionEnd = cursorPos;
-      self.selectors.textarea.focus();
+      self.ele.textarea.value = front + dateString + back;
+      self.ele.textarea.selectionStart = cursorPos;
+      self.ele.textarea.selectionEnd = cursorPos;
+      self.ele.textarea.focus();
     };
 
     /**
@@ -207,8 +207,8 @@
     Notepad.prototype.toggleStatusBar = function() {
       // Word wrap must be disabled
       if (!self.wordWrap) {
-        self.selectors.areaEdit.classList.toggle("has-status-bar");
-        self.selectors.statusBar.classList.toggle("visible");
+        self.ele.areaEdit.classList.toggle("has-status-bar");
+        self.ele.statusBar.classList.toggle("visible");
         self.statusBar = !self.statusBar;
       }
     };
@@ -222,7 +222,7 @@
         self.toggleStatusBar();
       }
 
-      self.selectors.textarea.classList.toggle("no-word-wrap");
+      self.ele.textarea.classList.toggle("no-word-wrap");
       self.wordWrap = !self.wordWrap;
     };
 
@@ -234,7 +234,7 @@
      */
     Notepad.prototype.changeTheme = function(newTheme) {
       var validThemes  = ["win7", "win10"],
-          currentTheme = __getCurrentTheme(self.selectors.body);
+          currentTheme = __getCurrentTheme(self.ele.body);
 
       // The desired theme is already applied or not available
       if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
@@ -242,8 +242,8 @@
       }
 
       // Apply the desired theme
-      self.selectors.body.classList.remove(currentTheme);
-      self.selectors.body.classList.add(newTheme);
+      self.ele.body.classList.remove(currentTheme);
+      self.ele.body.classList.add(newTheme);
       return true;
     };
 
