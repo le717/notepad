@@ -121,7 +121,7 @@ textarea.no-word-wrap {
 }
 
 .menu-context {
-  margin-top: 4.1em;
+  top: 4.1em;
   margin-left: 5em;
   width: 10.5em;
   min-height: 1.1em;
