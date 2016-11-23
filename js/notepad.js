@@ -84,16 +84,6 @@
     var self = null;
 
     /**
-     * Get the class of the current theme.
-     *
-     * @private
-     * @returns {String}
-     */
-    function __getCurrentTheme(body) {
-      return body.className.match(/^win\d{1,2}$/)[0];
-    }
-
-    /**
      * Create a Notepad API instance.
      *
      * @constructs Notepad
@@ -107,6 +97,9 @@
       self = this;
     }
 
+    /**
+     * @private
+     */
     Notepad.prototype.__getCurrentCursor = function() {
       var lines = self.ele.textarea.value.substr(0, self.ele.textarea.selectionStart).split("\n");
       return {
@@ -115,6 +108,9 @@
       };
     };
 
+    /**
+     * @private
+     */
     Notepad.prototype.__displayCurrentCursor = function() {
       var pos = self.__getCurrentCursor();
       self.ele.statusBar.children[1].children[0].textContent = pos.line;
@@ -248,27 +244,6 @@
       self.wordWrap = !self.wordWrap;
     };
 
-    /**
-     * Change the UI theme.
-     *
-     * @param {String} newTheme - The desired theme to use.
-     * @returns {Boolean} True if the theme could be changed, false otherwise.
-     */
-    Notepad.prototype.changeTheme = function(newTheme) {
-      var validThemes  = ["win7", "win10"],
-          currentTheme = __getCurrentTheme(self.ele.body);
-
-      // The desired theme is already applied or not available
-      if (newTheme === currentTheme || validThemes.indexOf(newTheme) === -1) {
-        return false;
-      }
-
-      // Apply the desired theme
-      self.ele.body.classList.remove(currentTheme);
-      self.ele.body.classList.add(newTheme);
-      return true;
-    };
-
     return Notepad;
   })();
 
@@ -307,14 +282,4 @@
   var QstatusBar = document.querySelector("input#status-bar");
   QstatusBar.checked = false;
   QstatusBar.addEventListener("click", notepad.toggleStatusBar);
-
-  // View > Windows X
-  var themeWin7  = document.querySelector(".menu-context input#theme-win7"),
-      themeWin10 = document.querySelector(".menu-context input#theme-win10");
-
-  // Default to the Windows 10 theme
-  themeWin10.checked = true;
-  themeWin7.onchange = themeWin10.onchange = function(e) {
-    notepad.changeTheme(e.target.id.match(/^theme-(win\d{1,2})/)[1]);
-  };
 }());

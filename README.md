@@ -8,7 +8,7 @@
 * Print file
 * Insert current Time/Date
 * Word wrap
-* Windows 7 and 10 theme
+* Status bar
 
 ## License ##
 [MIT](LICENSE)

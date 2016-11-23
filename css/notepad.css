@@ -185,37 +185,6 @@ textarea.no-word-wrap {
 .win10 .menu-context .menu-disabled { color: #976d81; }
 .win10 .menu-context .menu-disabled:hover { background-color: #e6e6e6; }
 
-
-/* ------- Windows 7 theme ------- */
-/* Win7 header */
-.win7 header { background-color: #66beff; }
-.win7 .menu { background-image: linear-gradient(to bottom, #f2f5fa, #f6ddef, #dee3f3); }
-.win7 .menu .border#primary { background-color: #3d7bad; }
-.win7 .menu .border#secondary { display: none; }
-.win7 .menu-underline { text-decoration: underline; }
-
-.win7 .menu li:hover {
-  border-color: #976d81;
-  border-radius: 2px;
-}
-.win7 .menu li.active {
-  border-color: #976d81;
-  border-radius: 2px;
-  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.35);
-}
-
-.win7 .menu-context { background-color: #f0f0f0; }
-.win7 .menu-context label { border-radius: 2px; }
-
-.win7 .menu-context label:hover {
-  background-image: linear-gradient(to bottom, #e1eaf0, #f0dcdc);
-  border-color: #66beff;
-}
-.win7 .menu-context label.menu-divider { border-top: 1px solid rgba(0, 0, 0, 0.1); }
-
-.win7 .menu-context .menu-disabled { color: #9b6d84; }
-.win7 .menu-context .menu-disabled:hover { background-image: linear-gradient(to bottom, #eff0f0, #e5e5e5); }
-
 /* Printing stylesheet */
 @media print {
   header, .menu { display: none; }
