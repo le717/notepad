@@ -112,7 +112,7 @@
      * Create a Notepad API instance.
      *
      * @constructs Notepad
-     * @param {Object} ele - [[Description]]
+     * @param {Object} ele
      */
     function Notepad(ele) {
       this.fileName = "Note.txt";
