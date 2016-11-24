@@ -1,6 +1,23 @@
 /* jshint browser: true */
 (function() {
   "use strict";
+
+  function findParent(ele, _class) {
+    // The desired element was not found on the page
+    if (ele === null) {
+      return null;
+    }
+
+    // We found the desired element
+    if (ele.classList.contains(_class)) {
+      return ele;
+
+      // Keep searching for the element
+    } else {
+      return findParent(ele.parentElement, _class);
+    }
+  }
+
   /**
    * Confirm this is a nav menu item.
    *
@@ -28,6 +45,9 @@
     }
   }
 
+  /**
+   * Show the desired menu.
+   */
   function showNavMenu(ele) {
     var contextMenu = ele.id.match(/^menu-(\w+?)$/)[1];
     document.querySelector(".menu-context." +  contextMenu).classList.add("visible");
