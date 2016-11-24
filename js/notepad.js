@@ -2,22 +2,6 @@
 (function() {
   "use strict";
 
-  function findParent(ele, _class) {
-    // The desired element was not found on the page
-    if (ele === null) {
-      return null;
-    }
-
-    // We found the desired element
-    if (ele.classList.contains(_class)) {
-      return ele;
-
-      // Keep searching for the element
-    } else {
-      return findParent(ele.parentElement, _class);
-    }
-  }
-
   /**
    * Confirm this is a nav menu item.
    *
@@ -25,6 +9,25 @@
    */
   function isNavItem(id) {
     return /^menu-(?:\w+?)$/.test(id);
+  }
+
+  /**
+   * Find the root nav item element.
+   */
+  function findNavItem(ele) {
+    // The desired element was not found on the page
+    if (ele === null) {
+      return null;
+    }
+
+    // We found the desired element
+    if (isNavItem(ele.id)) {
+      return ele;
+
+      // Keep searching for the element
+    } else {
+      return findNavItem(ele.parentElement);
+    }
   }
 
   /**
@@ -72,23 +75,26 @@
   });
 
   Qmenu.addEventListener("click", function(e) {
+    var navItem = findNavItem(e.target);
     // Close the menu if the label is clicked again
-    if (isNavItem(e.target.id) && menusAreVisible) {
+    if (navItem && menusAreVisible) {
       menusAreVisible = false;
       hideNavMenu();
       return;
     }
 
     // Make sure the desired menu is not already visible
-    if (isNavItem(e.target.id) && !e.target.classList.contains("visible")) {
+    if (navItem && !navItem.classList.contains("visible")) {
       // Menus are allowed to be shown
       menusAreVisible = true;
-      showNavMenu(e.target);
+      showNavMenu(navItem);
     }
    });
 
   Qbody.addEventListener("click", function(e) {
-    if (!isNavItem(e.target.id) && !e.target.classList.contains("menu-disabled") &&
+    var navItem = findNavItem(e.target);
+
+    if (!navItem && !e.target.classList.contains("menu-disabled") &&
         !e.target.classList.contains("blank")) {
       // Menus are not allowed to be shown at this time
       if (menusAreVisible) {
