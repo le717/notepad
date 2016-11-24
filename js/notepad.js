@@ -14,8 +14,8 @@
    * Hide the current menu.
    */
   function hideNavMenu() {
+    var menuActive  = document.querySelector(".menu .active");
     var menuVisible = document.querySelector(".menu-context.visible");
-    var menuActive = document.querySelector(".menu .active");
 
     // Hide the currently visible menu
     if (menuVisible) {
@@ -26,6 +26,12 @@
     if (menuActive) {
       menuActive.classList.remove("active");
     }
+  }
+
+  function showNavMenu(ele) {
+    var contextMenu = ele.id.match(/^menu-(\w+?)$/)[1];
+    document.querySelector(".menu-context." +  contextMenu).classList.add("visible");
+    ele.classList.add("active");
   }
 
   var menusAreVisible = false,
@@ -40,10 +46,7 @@
 
       // Only display the menus if we are allowed to
       if (menusAreVisible) {
-        // Display the currently hovered-over menu
-        var contextMenu = e.target.id.match(/^menu-(\w+?)$/)[1];
-        document.querySelector(".menu-context." +  contextMenu).classList.add("visible");
-        e.target.classList.add("active");
+        showNavMenu(e.target);
       }
     }
   });
@@ -60,11 +63,7 @@
     if (isNavItem(e.target.id) && !e.target.classList.contains("visible")) {
       // Menus are allowed to be shown
       menusAreVisible = true;
-
-      // Display the desired menu
-      var contextMenu = e.target.id.match(/^menu-(\w+?)$/)[1];
-      document.querySelector(".menu-context." +  contextMenu).classList.add("visible");
-      e.target.classList.add("active");
+      showNavMenu(e.target);
     }
    });
 
