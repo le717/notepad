@@ -182,7 +182,14 @@
       var newName = prompt("Enter the desired file name").trim();
 
       // Do not permit a blank name
-      if (!/^\s*$/.test(newName)) {
+      var blank_name = /^\s*$/.test(newName);
+      if (!blank_name) {
+        self.fileName = newName;
+      }
+
+      // Only append .txt if the user hasn't typed it already
+      var ends_with_txt = /\.txt$/.test(newName);
+      if (!ends_with_txt) {
         self.fileName = newName + ".txt";
       }
       self.fileSave();
