@@ -1,4 +1,3 @@
-/* jshint browser: true */
 (function() {
   "use strict";
 
@@ -125,7 +124,7 @@
     /**
      * @private
      */
-    Notepad.prototype.__getCurrentCursor = function() {
+    Notepad.prototype.__getCursor = function() {
       var lines = self.ele.textarea.value.substr(0, self.ele.textarea.selectionStart).split("\n");
       return {
         col: lines[lines.length - 1].length + 1,
@@ -136,10 +135,47 @@
     /**
      * @private
      */
-    Notepad.prototype.__displayCurrentCursor = function() {
-      var pos = self.__getCurrentCursor();
+    Notepad.prototype.__displayCursor = function() {
+      var pos = self.__getCursor();
       self.ele.statusBar.children[1].children[0].textContent = pos.line;
       self.ele.statusBar.children[1].children[1].textContent = pos.col;
+    };
+
+    /**
+     * @private
+     * Set the cursor at a particular point.
+     *
+     * @param {number} start
+     * @param {number} end
+     */
+    Notepad.prototype.__setCursor = function(start, end) {
+      if (end === undefined) end = start;
+      self.ele.textarea.selectionStart = start.toString();
+      self.ele.textarea.selectionEnd = end.toString();
+      self.__focusEditor();
+    };
+
+    /**
+     * @private
+     * Update the title bar and tab title with the file name.
+     *
+     * @param {string} fileName
+     */
+    Notepad.prototype.__updateTitleBar = function(fileName) {
+      self.ele.titleFileName.textContent = fileName;
+      if (fileName === "" || fileName === "Untitled") {
+        document.title = "Notepad"
+      } else {
+        document.title = fileName + " - " + document.title;
+      }
+    };
+
+    /**
+     * @private
+     * Focus the editor.
+     */
+    Notepad.prototype.__focusEditor = function() {
+      self.ele.textarea.focus();
     };
 
     /**
@@ -147,7 +183,8 @@
      */
     Notepad.prototype.fileNew = function() {
       self.ele.textarea.value = "";
-      self.ele.textarea.focus();
+      self.__focusEditor();
+      self.__updateTitleBar("Untitled");
     };
 
     /**
@@ -174,6 +211,8 @@
         saveLink.click();
         self.ele.body.removeChild(saveLink);
       }
+
+      self.__updateTitleBar(self.fileName);
     };
 
     /**
@@ -183,7 +222,14 @@
       var newName = prompt("Enter the desired file name").trim();
 
       // Do not permit a blank name
-      if (!/^\s*$/.test(newName)) {
+      var blank_name = /^\s*$/.test(newName);
+      if (!blank_name) {
+        self.fileName = newName;
+      }
+
+      // Only append .txt if the user hasn't typed it already
+      var ends_with_txt = /\.txt$/.test(newName);
+      if (!ends_with_txt) {
         self.fileName = newName + ".txt";
       }
       self.fileSave();
@@ -233,27 +279,28 @@
       self.ele.textarea.value = front + dateString + back;
       self.ele.textarea.selectionStart = cursorPos;
       self.ele.textarea.selectionEnd = cursorPos;
-      self.ele.textarea.focus();
+      self.__focusEditor();
     };
 
     /**
      * Toggle the status bar.
      */
     Notepad.prototype.toggleStatusBar = function() {
-      // Word wrap must be disabled
-      if (!self.wordWrap) {
-        self.ele.areaEdit.classList.toggle("has-status-bar");
-        self.ele.statusBar.classList.toggle("visible");
-        self.statusBar = !self.statusBar;
-        window.localStorage.setItem("toggle-status-bar", self.statusBar);
+      // Alter state values based on toggle state
+      self.statusBar = !self.statusBar;
+      self.ele.areaEdit.classList.toggle("has-status-bar");
+      self.ele.statusBar.classList.toggle("visible");
+      window.localStorage.setItem("toggle-status-bar", self.statusBar);
+      self.__focusEditor();
 
-        // Display the information depending on enable/disable status
-        if (self.statusBar) {
-          self.__displayCurrentCursor();
-          self.ele.textarea.addEventListener("keyup", self.__displayCurrentCursor);
-        } else {
-          self.ele.textarea.removeEventListener("keyup", self.__displayCurrentCursor);
-        }
+      // Display the information depending on enable/disable status
+      if (self.statusBar) {
+        self.__displayCursor();
+        self.ele.textarea.addEventListener("keyup", self.__displayCursor);
+        self.ele.textarea.addEventListener("click", self.__displayCursor);
+      } else {
+        self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
+        self.ele.textarea.removeEventListener("click", self.__displayCursor);
       }
     };
 
@@ -261,14 +308,32 @@
      * Toggle word wrap.
      */
     Notepad.prototype.toggleWordWrap = function() {
-      // We cannot have the status bar and word wrap enabled
-      if (self.statusBar) {
-        self.toggleStatusBar();
-      }
-
-      self.ele.textarea.classList.toggle("no-word-wrap");
+      // Alter state values based on toggle state
       self.wordWrap = !self.wordWrap;
+      self.ele.textarea.classList.toggle("no-word-wrap");
       window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
+      self.__setCursor(0);
+
+      // If the status bar is enabled, update the cursor pos display
+      if (self.statusBar) {
+        self.__displayCursor();
+      }
+    };
+
+    /**
+     * Select all text in the text area.
+     */
+    Notepad.prototype.editSelectAll = function() {
+      self.ele.textarea.select();
+    };
+
+    /**
+     * View Notepad help website.
+     */
+    Notepad.prototype.helpViewHelp = function() {
+      var url = "https://answers.microsoft.com/en-us/windows/forum/apps_windows_10";
+      var win = window.open(url, "_blank");
+      win.focus();
     };
 
     return Notepad;
@@ -280,6 +345,7 @@
     body: document.querySelector("body"),
     areaEdit: document.querySelector("#area-edit"),
     textarea: QtextArea,
+    titleFileName: document.querySelector("#title-file-name"),
     statusBar: document.querySelector("#area-status-bar"),
   });
 
@@ -297,6 +363,9 @@
 
   // Edit > Time/Date
   document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
+
+  // Edit > Select All
+  document.querySelector(".menu-context #action-select-all").addEventListener("click", notepad.editSelectAll);
 
   // Format > Word Wrap
   // Word wrap is disabled by default
@@ -319,4 +388,7 @@
   if (window.localStorage.getItem("toggle-status-bar") === "true") {
     QstatusBar.click();
   }
+
+  // Help > View Help
+  document.querySelector(".menu-context #action-view-help").addEventListener("click", notepad.helpViewHelp);
 }());
