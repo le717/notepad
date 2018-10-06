@@ -141,7 +141,6 @@
       self.ele.statusBar.children[1].children[1].textContent = pos.col;
     };
 
-
     /**
      * @private
      * Set the cursor at a particular point.
@@ -298,8 +297,10 @@
       if (self.statusBar) {
         self.__displayCursor();
         self.ele.textarea.addEventListener("keyup", self.__displayCursor);
+        self.ele.textarea.addEventListener("click", self.__displayCursor);
       } else {
         self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
+        self.ele.textarea.removeEventListener("click", self.__displayCursor);
       }
     };
 
