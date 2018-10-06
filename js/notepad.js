@@ -302,6 +302,12 @@
       self.ele.textarea.select();
     };
 
+    Notepad.prototype.helpViewHelp = function() {
+      var url = "https://answers.microsoft.com/en-us/windows/forum/apps_windows_10";
+      var win = window.open(url, "_blank");
+      win.focus();
+    };
+
     return Notepad;
   })();
 
@@ -354,4 +360,7 @@
   if (window.localStorage.getItem("toggle-status-bar") === "true") {
     QstatusBar.click();
   }
+
+  // Help > View Help
+  document.querySelector(".menu-context #action-view-help").addEventListener("click", notepad.helpViewHelp);
 }());
