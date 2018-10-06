@@ -153,7 +153,7 @@
       if (end === undefined) end = start;
       self.ele.textarea.selectionStart = start.toString();
       self.ele.textarea.selectionEnd = end.toString();
-      self.ele.textarea.focus();
+      self.__focusEditor();
     };
 
     /**
@@ -172,11 +172,19 @@
     };
 
     /**
+     * @private
+     * Focus the editor.
+     */
+    Notepad.prototype.__focusEditor = function() {
+      self.ele.textarea.focus();
+    };
+
+    /**
      * Create a new file.
      */
     Notepad.prototype.fileNew = function() {
       self.ele.textarea.value = "";
-      self.ele.textarea.focus();
+      self.__focusEditor();
       self.__updateTitleBar("Untitled");
     };
 
@@ -272,19 +280,19 @@
       self.ele.textarea.value = front + dateString + back;
       self.ele.textarea.selectionStart = cursorPos;
       self.ele.textarea.selectionEnd = cursorPos;
-      self.ele.textarea.focus();
+      self.__focusEditor();
     };
 
     /**
      * Toggle the status bar.
      */
     Notepad.prototype.toggleStatusBar = function() {
-      // Word wrap must be disabled
-      if (!self.wordWrap) {
+      // Alter state values based on toggle state
+      self.statusBar = !self.statusBar;
         self.ele.areaEdit.classList.toggle("has-status-bar");
         self.ele.statusBar.classList.toggle("visible");
-        self.statusBar = !self.statusBar;
         window.localStorage.setItem("toggle-status-bar", self.statusBar);
+      self.__focusEditor();
 
         // Display the information depending on enable/disable status
         if (self.statusBar) {
@@ -293,7 +301,6 @@
         } else {
           self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
         }
-      }
     };
 
     /**
