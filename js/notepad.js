@@ -124,7 +124,7 @@
     /**
      * @private
      */
-    Notepad.prototype.__getCurrentCursor = function() {
+    Notepad.prototype.__getCursor = function() {
       var lines = self.ele.textarea.value.substr(0, self.ele.textarea.selectionStart).split("\n");
       return {
         col: lines[lines.length - 1].length + 1,
@@ -135,10 +135,25 @@
     /**
      * @private
      */
-    Notepad.prototype.__displayCurrentCursor = function() {
-      var pos = self.__getCurrentCursor();
+    Notepad.prototype.__displayCursor = function() {
+      var pos = self.__getCursor();
       self.ele.statusBar.children[1].children[0].textContent = pos.line;
       self.ele.statusBar.children[1].children[1].textContent = pos.col;
+    };
+
+
+    /**
+     * @private
+     * Set the cursor at a particular point.
+     *
+     * @param {number} start
+     * @param {number} end
+     */
+    Notepad.prototype.__setCursor = function(start, end) {
+      if (end === undefined) end = start;
+      self.ele.textarea.selectionStart = start.toString();
+      self.ele.textarea.selectionEnd = end.toString();
+      self.ele.textarea.focus();
     };
 
     /**
@@ -273,10 +288,10 @@
 
         // Display the information depending on enable/disable status
         if (self.statusBar) {
-          self.__displayCurrentCursor();
-          self.ele.textarea.addEventListener("keyup", self.__displayCurrentCursor);
+          self.__displayCursor();
+          self.ele.textarea.addEventListener("keyup", self.__displayCursor);
         } else {
-          self.ele.textarea.removeEventListener("keyup", self.__displayCurrentCursor);
+          self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
         }
       }
     };
@@ -291,6 +306,7 @@
       }
 
       self.ele.textarea.classList.toggle("no-word-wrap");
+      self.__setCursor(0);
       self.wordWrap = !self.wordWrap;
       window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
     };
@@ -315,9 +331,9 @@
   // Create a new Notepad API instance
   var notepad = new Notepad({
     body: document.querySelector("body"),
-    titleFileName: document.querySelector("#title-file-name"),
     areaEdit: document.querySelector("#area-edit"),
     textarea: QtextArea,
+    titleFileName: document.querySelector("#title-file-name"),
     statusBar: document.querySelector("#area-status-bar"),
   });
 
