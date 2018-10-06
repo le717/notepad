@@ -289,33 +289,34 @@
     Notepad.prototype.toggleStatusBar = function() {
       // Alter state values based on toggle state
       self.statusBar = !self.statusBar;
-        self.ele.areaEdit.classList.toggle("has-status-bar");
-        self.ele.statusBar.classList.toggle("visible");
-        window.localStorage.setItem("toggle-status-bar", self.statusBar);
+      self.ele.areaEdit.classList.toggle("has-status-bar");
+      self.ele.statusBar.classList.toggle("visible");
+      window.localStorage.setItem("toggle-status-bar", self.statusBar);
       self.__focusEditor();
 
-        // Display the information depending on enable/disable status
-        if (self.statusBar) {
-          self.__displayCursor();
-          self.ele.textarea.addEventListener("keyup", self.__displayCursor);
-        } else {
-          self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
-        }
+      // Display the information depending on enable/disable status
+      if (self.statusBar) {
+        self.__displayCursor();
+        self.ele.textarea.addEventListener("keyup", self.__displayCursor);
+      } else {
+        self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
+      }
     };
 
     /**
      * Toggle word wrap.
      */
     Notepad.prototype.toggleWordWrap = function() {
-      // We cannot have the status bar and word wrap enabled
-      if (self.statusBar) {
-        self.toggleStatusBar();
-      }
-
-      self.ele.textarea.classList.toggle("no-word-wrap");
-      self.__setCursor(0);
+      // Alter state values based on toggle state
       self.wordWrap = !self.wordWrap;
+      self.ele.textarea.classList.toggle("no-word-wrap");
       window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
+      self.__setCursor(0);
+
+      // If the status bar is enabled, update the cursor pos display
+      if (self.statusBar) {
+        self.__displayCursor();
+      }
     };
 
     /**
@@ -325,6 +326,9 @@
       self.ele.textarea.select();
     };
 
+    /**
+     * View Notepad help website.
+     */
     Notepad.prototype.helpViewHelp = function() {
       var url = "https://answers.microsoft.com/en-us/windows/forum/apps_windows_10";
       var win = window.open(url, "_blank");
