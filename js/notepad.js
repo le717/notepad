@@ -142,11 +142,27 @@
     };
 
     /**
+     * @private
+     * Update the title bar and tab title with the file name.
+     *
+     * @param {string} fileName
+     */
+    Notepad.prototype.__updateTitleBar = function(fileName) {
+      self.ele.titleFileName.textContent = fileName;
+      if (fileName === "" || fileName === "Untitled") {
+        document.title = "Notepad"
+      } else {
+        document.title = fileName + " - " + document.title;
+      }
+    };
+
+    /**
      * Create a new file.
      */
     Notepad.prototype.fileNew = function() {
       self.ele.textarea.value = "";
       self.ele.textarea.focus();
+      self.__updateTitleBar("Untitled");
     };
 
     /**
@@ -173,6 +189,8 @@
         saveLink.click();
         self.ele.body.removeChild(saveLink);
       }
+
+      self.__updateTitleBar(self.fileName);
     };
 
     /**
@@ -291,6 +309,7 @@
   // Create a new Notepad API instance
   var notepad = new Notepad({
     body: document.querySelector("body"),
+    titleFileName: document.querySelector("#title-file-name"),
     areaEdit: document.querySelector("#area-edit"),
     textarea: QtextArea,
     statusBar: document.querySelector("#area-status-bar"),
