@@ -1,4 +1,3 @@
-/* jshint browser: true */
 (function() {
   "use strict";
 
@@ -271,6 +270,13 @@
       window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
     };
 
+    /**
+     * Select all text in the text area.
+     */
+    Notepad.prototype.editSelectAll = function() {
+      self.ele.textarea.select();
+    };
+
     return Notepad;
   })();
 
@@ -297,6 +303,9 @@
 
   // Edit > Time/Date
   document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
+
+  // Edit > Select All
+  document.querySelector(".menu-context #action-select-all").addEventListener("click", notepad.editSelectAll);
 
   // Format > Word Wrap
   // Word wrap is disabled by default
