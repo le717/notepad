@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notepad</title>
   <link rel="shortcut icon" sizes="16x16" href="favicon.ico">
@@ -15,13 +15,6 @@
   <meta property="og:url" content="https://notepad.codetri.net">
   <meta property="og:image" content="https://notepad.codetri.net/img/social-media-card.png">
   <meta property="og:description" content="Good ol' Windows Notepad, now available on the Web!">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@cely717">
-  <meta name="twitter:creator" content="@cely717">
-  <meta name="twitter:title" content="Notepad">
-  <meta name="twitter:description" content="Good ol' Windows Notepad, now available on the Web!">
-  <meta name="twitter:image:src" content="https://notepad.codetri.net/img/social-media-card.png">
 </head>
 
 <body class="win10">
@@ -55,11 +48,11 @@
     </div>
 
     <label id="action-new">New</label>
-    <label class="menu-disabled">Open...</label>
+    <label class="menu-disabled">Open&hellip;</label>
     <label id="action-save">Save</label>
-    <label id="action-save-as">Save As...</label>
-    <label class="menu-divider menu-disabled">Page Setup...</label>
-    <label id="action-print">Print...</label>
+    <label id="action-save-as">Save As&hellip;</label>
+    <label class="menu-divider menu-disabled">Page Setup&hellip;</label>
+    <label id="action-print">Print&hellip;</label>
     <label class="menu-disabled menu-divider">Exit</label>
   </nav>
 
@@ -80,15 +73,16 @@
     </div>
 
     <label class="menu-disabled">Undo</label>
-    <label class="menu-disabled menu-divider">Cut</label>
-    <label class="menu-disabled">Copy</label>
+    <label class="menu-divider" id="action-cut">Cut</label>
+    <label id="action-copy">Copy</label>
     <label class="menu-disabled">Paste</label>
     <label class="menu-disabled">Delete</label>
 
-    <label class="menu-disabled menu-divider">Find...</label>
-    <label class="menu-disabled">Find Next...</label>
-    <label class="menu-disabled">Replace...</label>
-    <label class="menu-disabled">Go To...</label>
+    <label class="menu-disabled menu-divider">Search with Bing&hellip;</label>
+    <label class="menu-disabled">Find&hellip;</label>
+    <label class="menu-disabled">Find Next&hellip;</label>
+    <label class="menu-disabled">Replace&hellip;</label>
+    <label class="menu-disabled">Go To&hellip;</label>
 
     <label class="menu-divider" id="action-select-all">Select All</label>
     <label id="action-time-date">Time/Date</label>
@@ -100,7 +94,7 @@
       <div class="blank"></div>
     </div>
     <label for="word-wrap">Word Wrap</label>
-    <label class="menu-disabled">Font...</label>
+    <label class="menu-disabled">Font&hellip;</label>
   </nav>
 
   <nav class="menu-context view">

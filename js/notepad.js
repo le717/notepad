@@ -118,6 +118,7 @@
       this.ele = ele;
       this.wordWrap = false;
       this.statusBar = false;
+      this.editor = ele.textarea;
       self = this;
     }
 
@@ -219,7 +220,7 @@
      * Save a document to the computer using a custom file name.
      */
     Notepad.prototype.fileSaveAs = function() {
-      var newName = prompt("Enter the desired file name").trim();
+      var newName = window.prompt("Enter the desired file name").trim();
 
       // Do not permit a blank name
       var blank_name = /^\s*$/.test(newName);
@@ -241,6 +242,36 @@
     Notepad.prototype.filePrint = function() {
       window.print();
     };
+
+    /**
+     * Cut the selected text to the OS clipboard.
+     */
+    Notepad.prototype.editCut = function() {
+      // Copy the selected text first
+      self.editCopy();
+
+      // Now get the selected text and delete it
+      let selectedText = self.editor.value.substr(
+        self.editor.selectionStart,
+        self.editor.selectionEnd - self.editor.selectionStart
+      );
+      self.editor.value = self.editor.value.replace(selectedText, "");
+    }
+
+    /**
+     * Copy the selected text to the OS clipboard.
+     */
+    Notepad.prototype.editCopy = function() {
+      // Get the selected text
+      let selectedText = self.editor.value.substr(
+        self.editor.selectionStart,
+        self.editor.selectionEnd - self.editor.selectionStart
+      );
+
+      // Attempt to copy the text to the clipboard.
+      // I don't care if it failed
+      navigator.clipboard.writeText(selectedText);
+    }
 
     /**
      * Insert the current time and date into the document
@@ -360,6 +391,12 @@
 
   // File > Print command
   document.querySelector(".menu-context #action-print").addEventListener("click", notepad.filePrint);
+
+  // Edit > Cut
+  document.querySelector(".menu-context #action-cut").addEventListener("click", notepad.editCut);
+
+  // Edit > Copy
+  document.querySelector(".menu-context #action-copy").addEventListener("click", notepad.editCopy);
 
   // Edit > Time/Date
   document.querySelector(".menu-context #action-time-date").addEventListener("click", notepad.editTimeDate);
