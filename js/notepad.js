@@ -126,7 +126,7 @@
      * @private
      */
     Notepad.prototype.__getCursor = function() {
-      var lines = self.ele.textarea.value.substr(0, self.ele.textarea.selectionStart).split("\n");
+      var lines = self.editor.value.substr(0, self.editor.selectionStart).split("\n");
       return {
         col: lines[lines.length - 1].length + 1,
         line: lines.length
@@ -151,8 +151,8 @@
      */
     Notepad.prototype.__setCursor = function(start, end) {
       if (end === undefined) end = start;
-      self.ele.textarea.selectionStart = start.toString();
-      self.ele.textarea.selectionEnd = end.toString();
+      self.editor.selectionStart = start.toString();
+      self.editor.selectionEnd = end.toString();
       self.__focusEditor();
     };
 
@@ -176,14 +176,14 @@
      * Focus the editor.
      */
     Notepad.prototype.__focusEditor = function() {
-      self.ele.textarea.focus();
+      self.editor.focus();
     };
 
     /**
      * Create a new file.
      */
     Notepad.prototype.fileNew = function() {
-      self.ele.textarea.value = "";
+      self.editor.value = "";
       self.__focusEditor();
       self.__updateTitleBar("Untitled");
     };
@@ -193,7 +193,7 @@
      */
     Notepad.prototype.fileSave = function() {
       // Create a blob object of the contents
-      var blob = new Blob([self.ele.textarea.value], {type: "text/plain"});
+      var blob = new Blob([self.editor.value], {type: "text/plain"});
 
       // Internet Explorer/MS Edge
       if (window.navigator.msSaveOrOpenBlob) {
@@ -282,7 +282,7 @@
           curHour = date.getHours(),
           curMin  = date.getMinutes(),
           timeOfDay = curHour > 11 ? "PM" : "AM",
-          cursorPos = self.ele.textarea.selectionStart;
+          cursorPos = self.editor.selectionStart;
 
       // Midnight
       if (curHour === 0) {
@@ -303,13 +303,13 @@
                        date.toLocaleDateString();
 
       // Update the document with the date string
-      var front = self.ele.textarea.value.substring(0, cursorPos),
-          back  = self.ele.textarea.value.substring(cursorPos, self.ele.textarea.length);
+      var front = self.editor.value.substring(0, cursorPos),
+          back  = self.editor.value.substring(cursorPos, self.editor.length);
 
       // Insert the date string into the document
-      self.ele.textarea.value = front + dateString + back;
-      self.ele.textarea.selectionStart = cursorPos;
-      self.ele.textarea.selectionEnd = cursorPos;
+      self.editor.value = front + dateString + back;
+      self.editor.selectionStart = cursorPos;
+      self.editor.selectionEnd = cursorPos;
       self.__focusEditor();
     };
 
@@ -327,11 +327,11 @@
       // Display the information depending on enable/disable status
       if (self.statusBar) {
         self.__displayCursor();
-        self.ele.textarea.addEventListener("keyup", self.__displayCursor);
-        self.ele.textarea.addEventListener("click", self.__displayCursor);
+        self.editor.addEventListener("keyup", self.__displayCursor);
+        self.editor.addEventListener("click", self.__displayCursor);
       } else {
-        self.ele.textarea.removeEventListener("keyup", self.__displayCursor);
-        self.ele.textarea.removeEventListener("click", self.__displayCursor);
+        self.editor.removeEventListener("keyup", self.__displayCursor);
+        self.editor.removeEventListener("click", self.__displayCursor);
       }
     };
 
@@ -341,7 +341,7 @@
     Notepad.prototype.toggleWordWrap = function() {
       // Alter state values based on toggle state
       self.wordWrap = !self.wordWrap;
-      self.ele.textarea.classList.toggle("no-word-wrap");
+      self.editor.classList.toggle("no-word-wrap");
       window.localStorage.setItem("toggle-word-wrap", self.wordWrap);
       self.__setCursor(0);
 
@@ -355,7 +355,7 @@
      * Select all text in the text area.
      */
     Notepad.prototype.editSelectAll = function() {
-      self.ele.textarea.select();
+      self.editor.select();
     };
 
     /**
