@@ -52,7 +52,7 @@
    */
   function showNavMenu(ele) {
     var contextMenu = ele.id.match(/^menu-(\w+?)$/)[1];
-    document.querySelector(".menu-context." +  contextMenu).classList.add("visible");
+    document.querySelector(`.menu-context.${contextMenu}`)?.classList.add("visible");
     ele.classList.add("active");
   }
 
@@ -167,7 +167,7 @@
       if (fileName === "" || fileName === "Untitled") {
         document.title = "Notepad"
       } else {
-        document.title = fileName + " - " + document.title;
+        document.title = `${fileName} - ${document.title}`;
       }
     };
 
@@ -295,12 +295,11 @@
 
       // Pretty print the minutes
       if (curMin < 10) {
-        curMin = "0" + curMin;
+        curMin = `0${curMin}`;
       }
 
       // Construct the formatted string
-      var dateString = curHour + ":" + curMin + " " + timeOfDay + " " +
-                       date.toLocaleDateString();
+      var dateString = `{$curHour}:${curMin} ${timeOfDay} ${date.toLocaleDateString()}`;
 
       // Update the document with the date string
       var front = self.editor.value.substring(0, cursorPos),
