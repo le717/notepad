@@ -299,7 +299,7 @@
       }
 
       // Construct the formatted string
-      var dateString = `{$curHour}:${curMin} ${timeOfDay} ${date.toLocaleDateString()}`;
+      var dateString = `${curHour}:${curMin} ${timeOfDay} ${date.toLocaleDateString()}`;
 
       // Update the document with the date string
       var front = self.editor.value.substring(0, cursorPos),
